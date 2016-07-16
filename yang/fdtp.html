@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>js效果-放大图片</title>
+	<link rel="stylesheet" href="">
+	<style>
+	*{margin: 0;padding: 0;}
+	#box{width: 300px;height: 200px;border:2px solid #000;position:relative;}
+	#box span{width: 100px;height:50px;background:orange;position:absolute;left: 0;top: 0;z-index:1;opacity:0.3;filter:alpha(opacity=30);display:none;}
+	#box img{width: 300px;height:200px;position:absolute;}
+	#cont{width: 300px;height: 200px;border:2px solid #000;overflow: hidden;position:absolute;left: 300px;top:0;z-index:2;display:none;}
+	#cont img{width:700px;position:absolute;left: 0;top: 0;}
+	</style>
+	<script>
+		window.onload=function(){
+			var oBox=document.getElementById('box');
+			var oSpan=oBox.children[0];
+			var oCont=document.getElementById('cont');
+			var oCimg=oCont.children[0];
+			oBox.onmouseover=function(){
+				oSpan.style.display='block';
+				oCont.style.display='block';
+			}
+			oBox.onmouseout=function(){
+				oSpan.style.display='none';
+				oCont.style.display='none';
+			}
+			oBox.onmousemove=function(ev){
+				var oEvent=ev || event;
+				var l=oEvent.clientX-oBox.offsetLeft-oSpan.offsetWidth/2;
+				var t=oEvent.clientY-oBox.offsetTop-oSpan.offsetHeight/2;
+				if(l<=0)l=0;
+				if(t<=0)t=0;
+				if(l>=oBox.offsetWidth-oSpan.offsetWidth)l=oBox.offsetWidth-oSpan.offsetWidth;
+				if(t>=oBox.offsetHeight-oSpan.offsetHeight)t=oBox.offsetHeight-oSpan.offsetHeight;
+				var salintX=l/(oBox.offsetWidth-oSpan.offsetWidth);
+				var salintY=t/(oBox.offsetHeight-oSpan.offsetHeight);
+				oSpan.style.top=t+'px';
+				oSpan.style.left=l+'px';
+				oCimg.style.top=salintY*(oCont.offsetHeight-oCimg.offsetHeight)+'px';
+				oCimg.style.left=salintX*(oCont.offsetWidth-oCimg.offsetWidth)+'px';
+			}
+		}
+	</script>
+</head>
+<body>
+	<div id="box">
+		<span></span>
+		<img src="../img/2-1.jpg" alt="" />
+	</div>
+	<div id="cont">
+		<img src="../img/2-1.jpg" alt="" />
+	</div>
+</body>
+</html>

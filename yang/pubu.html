@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="">
+	<style>
+	*{margin: 0;padding: 0;}
+	li{list-style:none;}
+	#qw{width: 852px;border:2px solid #000;margin: 0 auto;}
+	ul{width: 120px;border:1px solid #000;margin: 10px;float: left;}
+	li{width: 100px;margin: 10px;}
+	</style>
+	<script>
+		function sui(n,m){
+			return parseInt(Math.random()*(m-n)+n);
+		}
+		function create(){
+			var oLi=document.createElement('li');
+			oLi.style.background='rgb('+sui(0,256)+','+sui(0,256)+','+sui(0,256)+')';
+			oLi.style.height=sui(200,500)+'px';
+			return oLi;
+		}
+		window.onload=function(){
+			var oQw=document.getElementById('qw');
+			var aUl=oQw.children;
+			var ttie=null;
+			
+			function create20(){
+				var i=0;
+				clearInterval(ttie);
+				ttie=setInterval(function(){
+					var oLi=create();
+					var arr=[];
+					
+					i++;
+					
+					for(var z=0;z<aUl.length;z++){
+						arr[z]=aUl[z];
+					}
+					arr.sort(function(ul1,ul2){
+						return ul1.offsetHeight-ul2.offsetHeight;
+					})
+					var tmp;
+					tmp=arr[0];
+					tmp.appendChild(oLi);
+					if(i>20){
+						clearInterval(ttie);
+					}
+				},30);
+				
+			}
+			create20();
+
+			window.onscroll=function(){
+				var scrollT=document.body.scrollTop || document.documentElement.scrollTop;
+				var clientH=document.documentElement.clientHeight;
+				var scrollBottom=scrollT+clientH;
+				if((document.body.scrollHeight-200)<scrollBottom){
+					create20();
+				}
+			}
+		}
+	</script>
+</head>
+<body>
+	<div id="qw">
+		<ul></ul>
+		<ul></ul>
+		<ul></ul>
+		<ul></ul>
+		<ul></ul>
+		<ul></ul>
+	</div>
+</body>
+</html>
