@@ -24,6 +24,11 @@ function getByClass(oParent,sClass){
     }
 }
 $(function(){
+    var aDos=getByClass(document,'xuanyi');
+    var oLiaojie=document.getElementById('liaojie');
+    oLiaojie.onclick=function(){
+        document.documentElement.scrollTop=document.body.scrollTop=aDos[2].offsetTop;
+    }
     ;(function(){
         var oZou=document.getElementById('zou');
         var oBox=document.getElementById('box');
@@ -73,7 +78,7 @@ $(function(){
             clearInterval(timer);
             var statr=document.documentElement.scrollTop || document.body.scrollTop;
             var dis=0-statr;
-            var iCont=parseInt(2000/30);
+            var iCont=parseInt(1000/30);
             var n=0;
             timer=setInterval(function(){
                 bSys=false;
@@ -85,7 +90,7 @@ $(function(){
                     bSys=true;
                     clearInterval(timer);
                 }
-            },30);
+            },200);
         }
 
         var oJsh=document.getElementById('js_hover');
@@ -167,8 +172,7 @@ $(function(){
         var aLi=oUl.getElementsByTagName('li');
         var oJsh=document.getElementById('js_hover');
         var aDos=getByClass(document,'xuanyi');
-        var scrollT=document.documentElement.scrollTop || document.body.scrollTop;
-        var iNow=oJsh.offsetHeight;
+
         oZhang.onclick=function(){
             document.documentElement.scrollTop=document.body.scrollTop=0;
         }
@@ -187,6 +191,7 @@ $(function(){
 
             }
         }
+
     })();
     ;(function(){
         var oBtn=document.getElementById('qou');
@@ -222,7 +227,7 @@ $(function(){
         function collision(){
             clearInterval(timer);
             timer=setInterval(function(){
-                iSpeedY+=2;
+                iSpeedY+=1;
                 var l=oBtn.offsetLeft+iSpeedX;
                 var t=oBtn.offsetTop+iSpeedY;
                 var clientW=document.documentElement.clientWidth-oBtn.offsetWidth;
@@ -340,11 +345,40 @@ $(function(){
             }
         }
         setSize();
-        var arr=['yang/huanxingtu.html'];
+        var arr=['yang/huanxingtu.html','yang/3dliti.html','buyu/buyu.html','yang/baozha.html','yang/CSS3shizhong.html','yang/fanye.html'];
         for(var i=0;i<aLi.length;i++){
             aLi[i].index=i;
             aLi[i].ondblclick=function(){
                 window.open(arr[this.index],'_blank');
+            }
+        }
+    })();
+    ;(function(){
+        var oUl=document.getElementById('erwei');
+        var aLi=oUl.getElementsByTagName('li');
+        var arr=[];
+        aLi[0].onclick=function(){
+            arr.push(arr.shift());
+            round();
+            
+        };
+        aLi[2].onclick=function(){
+            arr.unshift(arr.pop());
+            round();
+        };
+        for(var i=0;i<aLi.length;i++){
+            arr.push({left:aLi[i].offsetLeft,
+                      top:aLi[i].offsetTop,
+                      opacity:getStyle(aLi[i],'opacity'),
+                      fnClick:aLi[i].onclick
+
+            });
+        }
+        function round(){
+            for(var i=0;i<aLi.length;i++){
+                move(aLi[i],{left:arr[i].left,top:arr[i].top});
+                aLi[i].style.opacity=arr[i].opacity;
+                aLi[i].onclick=arr[i].fnClick;
             }
         }
     })();
