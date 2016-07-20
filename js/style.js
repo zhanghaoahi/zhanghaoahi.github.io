@@ -345,7 +345,7 @@ $(function(){
             }
         }
         setSize();
-        var arr=['yang/huanxingtu.html','yang/3dliti.html','buyu/buyu.html','yang/baozha.html','yang/CSS3shizhong.html','yang/fanye.html'];
+        var arr=['yang/huanxingtu.html','buyu/buyu.html','yang/3dliti.html','yang/baozha.html','yang/CSS3shizhong.html','yang/fanye.html'];
         for(var i=0;i<aLi.length;i++){
             aLi[i].index=i;
             aLi[i].ondblclick=function(){
